@@ -15,26 +15,23 @@ module.exports = {
     fontSize: fontSizes,
     extend: {
       fontFamily: {
-        'atkinson': ['Atkinson Hyperlegible', 'sans-serif'],
+        'manrope': ['Manrope', 'sans-serif'],
       },
       spacing: {
         "4.5": "1.125rem", // 18px
       },
       colors: {
-        orange: {
-          100: "#FFB84A",
-          200: "#FDA214",
-        },
         gray: {
-          100: "#FCFCFC",
-          200: "#F2F2F2",
-          300: "#DFE7EC",
-          400: "#BCCED9",
-          500: "#6395B8",
-          600: "#7191A5",
-          700: "#304859",
-          800: "#152938",
+          100: "#FAFAFA",
+          200: "#F1F1F1",
+          300: "#101010",
         },
+        orange: {
+          100: "#fbaf85",
+          200: "#D87D4A",
+        },
+        white: "#ffffff",
+        black: "#000000",
       }
     },
   },

@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-    @apply font-atkinson;
+    @apply font-manrope;
 }
