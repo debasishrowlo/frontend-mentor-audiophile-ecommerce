@@ -4,6 +4,4 @@ import App from "./App"
 
 import "./index.css"
 
-const container = document.getElementById("app") as HTMLElement
-const root = createRoot(container)
-root.render(<App />)
+createRoot(document.getElementById("app")).render(<App />)

@@ -17,7 +17,10 @@
     "sourceMap": true,
     "target": "es2015",
     "types": ["node"],
-    "typeRoots": ["src/modules.d.ts"],
+    "typeRoots": [
+      "node_modules/@types",
+      "src/modules.d.ts"
+    ],
     "paths": {
       "@/*": ["./src/*"]
     }

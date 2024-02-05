@@ -1,25 +1,27 @@
-const fontSizes = {}
+const fontSize = {}
 const minFontSize = 12
 const maxFontSize = 70
 const base = 16
 let i = minFontSize
 while (i <= maxFontSize) {
-  fontSizes[i] = `${i / base}rem`
+  fontSize[i] = `${i / base}rem`
   i += 2
 }
 
+const borderRadius = [0, 2, 4, 6, 8, 12, 16, 24].reduce((acc, cur) => {
+  acc[cur] = `${cur / base}rem`
+  return acc
+}, {})
+borderRadius["full"] = "9999px"
+
 module.exports = {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
-  darkMode: "class",
+  corePlugins: {
+    container: false,
+  },
   theme: {
-    fontSize: fontSizes,
     extend: {
-      fontFamily: {
-        'manrope': ['Manrope', 'sans-serif'],
-      },
-      spacing: {
-        "4.5": "1.125rem", // 18px
-      },
+      borderRadius,
       colors: {
         gray: {
           100: "#FAFAFA",
@@ -27,13 +29,16 @@ module.exports = {
           300: "#101010",
         },
         orange: {
-          100: "#fbaf85",
+          100: "#FBAF85",
           200: "#D87D4A",
         },
-        white: "#ffffff",
         black: "#000000",
-      }
-    },
+      },
+      fontFamily: {
+        'manrope': ['Manrope', 'sans-serif'],
+      },
+      fontSize,
+    }
   },
   plugins: [],
 }

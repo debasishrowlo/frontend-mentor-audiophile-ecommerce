@@ -3,5 +3,13 @@
 @tailwind utilities;
 
 body {
-    @apply font-manrope;
+    @apply font-manrope text-black;
+}
+
+.container {
+    @apply sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg;
+}
+
+@media (min-width: 1110px) {
+    .container { max-width: 1110px; }
 }
