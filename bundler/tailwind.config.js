@@ -1,15 +1,19 @@
 const fontSize = {}
+
+const pxToRem = (px, base = 16) => {
+  return `${px / base}rem`
+}
+
 const minFontSize = 12
 const maxFontSize = 70
-const base = 16
 let i = minFontSize
 while (i <= maxFontSize) {
-  fontSize[i] = `${i / base}rem`
+  fontSize[i] = pxToRem(i)
   i += 2
 }
 
 const borderRadius = [0, 2, 4, 6, 8, 12, 16, 24].reduce((acc, cur) => {
-  acc[cur] = `${cur / base}rem`
+  acc[cur] = pxToRem(cur)
   return acc
 }, {})
 borderRadius["full"] = "9999px"
@@ -38,6 +42,9 @@ module.exports = {
         'manrope': ['Manrope', 'sans-serif'],
       },
       fontSize,
+      spacing: {
+        "22": pxToRem(88),
+      },
     }
   },
   plugins: [],

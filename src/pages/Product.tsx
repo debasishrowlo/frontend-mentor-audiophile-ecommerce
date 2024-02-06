@@ -99,11 +99,11 @@ const Product = () => {
   return (
     <>
       <header className="sticky top-0 left-0 bg-black">
-        <div className="container mx-auto py-8 flex items-center justify-between">
-          <button type="button" className="px-6 md:px-8 lg:hidden">
+        <div className="container mx-auto px-6 py-8 flex items-center justify-between md:px-10 lg:px-0">
+          <button type="button" className="lg:hidden">
             <img src={hamburgerIcon} />
           </button>
-          <div className="flex justify-center md:grow md:justify-start lg:grow-0">
+          <div className="ml-6 flex justify-center md:grow md:justify-start lg:grow-0 lg:ml-0">
             <img src={logo} />
           </div>
           <div 
@@ -119,16 +119,16 @@ const Product = () => {
               </a>
             ))}
           </div>
-          <button type="button" className="px-6 md:px-8">
+          <button type="button">
             <img src={cartIcon} />
           </button>
         </div>
       </header>
       <main>
-        <div className="container mx-auto mt-4 md:mt-8 lg:mt-20">
-          <a href="#" className="px-6 text-16 font-medium opacity-50 md:px-8 lg:px-0">Go Back</a>
-        </div>
-        <div className="container mx-auto mt-6 px-6 md:px-8 md:flex md:items-center md:space-x-[70px] lg:space-x-[125px] lg:px-0">
+        <section className="container mx-auto mt-4 px-6 md:px-10 lg:px-0 md:mt-8 lg:mt-20">
+          <a href="#" className="text-16 font-medium opacity-50">Go Back</a>
+        </section>
+        <section className="container mx-auto mt-6 px-6 md:px-10 md:flex md:items-center md:space-x-[70px] lg:px-0 lg:space-x-[125px]">
           <div className="rounded-8 overflow-hidden md:w-2/5 lg:w-1/2">
             <img src={require(`@/assets/product-${product.slug}/mobile/image-product.jpg`)} className="md:hidden" />
             <img src={require(`@/assets/product-${product.slug}/tablet/image-product.jpg`)} className="hidden md:block lg:hidden" />
@@ -167,38 +167,41 @@ const Product = () => {
               </button>
             </div>
           </div>
-        </div>
-        <div className="container mx-auto lg:flex">
-          <div className="w-3/4">
-            <p>FEATURES</p>
-            <p className="whitespace-pre-line">{product.features}</p>
+        </section>
+        <section className="container mx-auto mt-22 px-6 md:mt-32 md:px-10 lg:mt-40 lg:px-0 lg:flex">
+          <div className="lg:w-2/3">
+            <p className="text-24 font-bold md:text-32">FEATURES</p>
+            <p className="mt-6 whitespace-pre-line opacity-50 lg:mt-8 lg:pr-20">{product.features}</p>
           </div>
-          <div className="lg:w-1/4 md:flex">
-            <p className="md:w-1/2">IN THE BOX</p>
-            <ul className="md:w-1/2">
+          <div className="mt-28 lg:w-1/3 md:flex lg:mt-0 lg:block">
+            <p className="text-24 font-bold md:w-1/2 md:text-32 lg:w-full">IN THE BOX</p>
+            <ul className="md:w-1/2 lg:mt-3 lg:w-full">
               {product.includedProducts.map(((includedProduct, index) => (
-                <li key={index}>
-                  {includedProduct.quantity}x {includedProduct.name}
+                <li key={index} className="mt-2 first:mt-0 lg:mt-3">
+                  <span className="font-bold text-orange-200">{includedProduct.quantity}x</span> 
+                  <span className="ml-5 opacity-50">{includedProduct.name}</span>
                 </li>
               )))}
             </ul>
           </div>
-        </div>
-        <div className="md:hidden">
-          <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-1.jpg`)} />
-          <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-2.jpg`)} />
-          <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-3.jpg`)} />
-        </div>
-        <div className="container mx-auto hidden md:flex">
-          <div className="w-2/5">
-            <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-1.jpg`)} />
-            <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-2.jpg`)} />
+        </section>
+        <section>
+          <div className="md:hidden">
+            <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-1.jpg`)} />
+            <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-2.jpg`)} />
+            <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-3.jpg`)} />
           </div>
-          <div className="w-3/5">
-            <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-3.jpg`)} />
+          <div className="container mx-auto hidden md:flex">
+            <div className="w-2/5">
+              <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-1.jpg`)} />
+              <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-2.jpg`)} />
+            </div>
+            <div className="w-3/5">
+              <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-3.jpg`)} />
+            </div>
           </div>
-        </div>
-        <div className="container mx-auto">
+        </section>
+        <section className="container mx-auto">
           <p>You may also like</p>
           <div className="md:flex">
             {product.similarProducts.map((similarProduct, index) => {
@@ -212,8 +215,8 @@ const Product = () => {
               )
             })}
           </div>
-        </div>
-        <div className="container mx-auto md:flex">
+        </section>
+        <section className="container mx-auto md:flex">
           {categories.map((category, index) => {
             return (
               <div key={index}>
@@ -223,8 +226,8 @@ const Product = () => {
               </div>
             )
           })}
-        </div>
-        <div className="container mx-auto lg:flex lg:flex-row-reverse">
+        </section>
+        <section className="container mx-auto lg:flex lg:flex-row-reverse">
           <div>
             <img src={require(`@/assets/shared/mobile/image-best-gear.jpg`)} className="md:hidden" />
             <img src={require(`@/assets/shared/tablet/image-best-gear.jpg`)} className="hidden md:block lg:hidden" />
@@ -234,7 +237,7 @@ const Product = () => {
             <p>Bringing you the best audio gear</p>
             <p>Located at the heart of New York City, Audiophile is the premier store for high end headphones, earphones, speakers, and audio accessories. We have a large showroom and luxury demonstration rooms available for you to browse and experience a wide range of our products. Stop by our store to meet some of the fantastic people who make Audiophile the best place to buy your portable audio equipment.</p>
           </div>
-        </div>
+        </section>
       </main>
       <footer className="bg-black">
         <div className="container mx-auto lg:flex lg:justify-between">
