@@ -94,6 +94,8 @@ const Product = () => {
     ...categories,
   ]
 
+  const year = (new Date()).getFullYear()
+
   return (
     <>
       <header className="sticky top-0 left-0 bg-black">
@@ -129,7 +131,8 @@ const Product = () => {
         <div className="container mx-auto mt-6 px-6 md:px-8 md:flex md:items-center md:space-x-[70px] lg:space-x-[125px] lg:px-0">
           <div className="rounded-8 overflow-hidden md:w-2/5 lg:w-1/2">
             <img src={require(`@/assets/product-${product.slug}/mobile/image-product.jpg`)} className="md:hidden" />
-            <img src={require(`@/assets/product-${product.slug}/tablet/image-product.jpg`)} className="hidden md:block" />
+            <img src={require(`@/assets/product-${product.slug}/tablet/image-product.jpg`)} className="hidden md:block lg:hidden" />
+            <img src={require(`@/assets/product-${product.slug}/desktop/image-product.jpg`)} className="hidden lg:block" />
           </div>
           <div className="mt-8 md:w-3/5 md:mt-0 md:py-11 lg:w-1/2">
             {product.new && (
@@ -165,26 +168,28 @@ const Product = () => {
             </div>
           </div>
         </div>
-        <div className="mt-22">
-          <p>FEATURES</p>
-          <p className="whitespace-pre-line">{product.features}</p>
-        </div>
-        <div className="md:flex">
-          <p className="md:w-1/2">IN THE BOX</p>
-          <ul className="md:w-1/2">
-            {product.includedProducts.map(((includedProduct, index) => (
-              <li key={index}>
-                {includedProduct.quantity}x {includedProduct.name}
-              </li>
-            )))}
-          </ul>
+        <div className="container mx-auto lg:flex">
+          <div className="w-3/4">
+            <p>FEATURES</p>
+            <p className="whitespace-pre-line">{product.features}</p>
+          </div>
+          <div className="lg:w-1/4 md:flex">
+            <p className="md:w-1/2">IN THE BOX</p>
+            <ul className="md:w-1/2">
+              {product.includedProducts.map(((includedProduct, index) => (
+                <li key={index}>
+                  {includedProduct.quantity}x {includedProduct.name}
+                </li>
+              )))}
+            </ul>
+          </div>
         </div>
         <div className="md:hidden">
           <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-1.jpg`)} />
           <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-2.jpg`)} />
           <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-3.jpg`)} />
         </div>
-        <div className="hidden md:flex">
+        <div className="container mx-auto hidden md:flex">
           <div className="w-2/5">
             <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-1.jpg`)} />
             <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-2.jpg`)} />
@@ -193,7 +198,7 @@ const Product = () => {
             <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-3.jpg`)} />
           </div>
         </div>
-        <div>
+        <div className="container mx-auto">
           <p>You may also like</p>
           <div className="md:flex">
             {product.similarProducts.map((similarProduct, index) => {
@@ -208,7 +213,7 @@ const Product = () => {
             })}
           </div>
         </div>
-        <div className="md:flex">
+        <div className="container mx-auto md:flex">
           {categories.map((category, index) => {
             return (
               <div key={index}>
@@ -219,32 +224,41 @@ const Product = () => {
             )
           })}
         </div>
-        <img src={require(`@/assets/shared/mobile/image-best-gear.jpg`)} className="md:hidden" />
-        <img src={require(`@/assets/shared/tablet/image-best-gear.jpg`)} className="hidden md:block" />
-        <p>Bringing you the best audio gear</p>
-        <p>Located at the heart of New York City, Audiophile is the premier store for high end headphones, earphones, speakers, and audio accessories. We have a large showroom and luxury demonstration rooms available for you to browse and experience a wide range of our products. Stop by our store to meet some of the fantastic people who make Audiophile the best place to buy your portable audio equipment.</p>
+        <div className="container mx-auto lg:flex lg:flex-row-reverse">
+          <div>
+            <img src={require(`@/assets/shared/mobile/image-best-gear.jpg`)} className="md:hidden" />
+            <img src={require(`@/assets/shared/tablet/image-best-gear.jpg`)} className="hidden md:block lg:hidden" />
+            <img src={require(`@/assets/shared/desktop/image-best-gear.jpg`)} className="hidden lg:block" />
+          </div>
+          <div>
+            <p>Bringing you the best audio gear</p>
+            <p>Located at the heart of New York City, Audiophile is the premier store for high end headphones, earphones, speakers, and audio accessories. We have a large showroom and luxury demonstration rooms available for you to browse and experience a wide range of our products. Stop by our store to meet some of the fantastic people who make Audiophile the best place to buy your portable audio equipment.</p>
+          </div>
+        </div>
       </main>
       <footer className="bg-black">
-        <img src={logo} />
-        <ul className="md:flex">
-          {menuItems.map((category, index) => (
-            <li key={index}>
-              <Link 
-                to={`/categories/${category.name.toLowerCase()}`}
-                className="text-white"
-              >
-                {category.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <p className="text-white">Audiophile is an all in one stop to fulfill your audio needs. We're a small team of music lovers and sound specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo facility - we’re open 7 days a week.</p>
-        <div className="md:flex">
-          <p className="text-white">Copyright 2021. All Rights Reserved</p>
-          <div className="flex justify-center">
-            <img src={facebookIcon} />
-            <img src={twitterIcon} />
-            <img src={instagramIcon} />
+        <div className="container mx-auto lg:flex lg:justify-between">
+          <img src={logo} />
+          <ul className="md:flex">
+            {menuItems.map((category, index) => (
+              <li key={index}>
+                <Link 
+                  to={`/categories/${category.name.toLowerCase()}`}
+                  className="text-white"
+                >
+                  {category.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="container mx-auto md:flex md:flex-wrap md:justify-between lg:items-end">
+          <p className="w-full text-white lg:order-1 lg:w-1/2">Audiophile is an all in one stop to fulfill your audio needs. We're a small team of music lovers and sound specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo facility - we’re open 7 days a week.</p>
+          <p className="text-white lg:order-3 lg:w-full">Copyright {year}. All Rights Reserved</p>
+          <div className="flex justify-center lg:order-2 lg:w-1/2 lg:justify-end">
+            <img src={facebookIcon} className="w-6 h-6" />
+            <img src={twitterIcon} className="w-6 h-6" />
+            <img src={instagramIcon} className="w-6 h-6" />
           </div>
         </div>
       </footer>
