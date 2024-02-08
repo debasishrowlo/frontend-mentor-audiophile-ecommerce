@@ -1,10 +1,18 @@
 import { Link } from "react-router-dom"
 
+import data from "@/data.json"
+
 const Home = () => {
   return (
     <div>
-      <p>Hello world!</p>
-      <Link to="/products/yx1-earphones">Product page</Link>
+      <p>Products</p>
+      {data.map(product => {
+        return (
+          <div>
+            <Link to={`/products/${product.slug}`}>{product.name}</Link>
+          </div>
+        )
+      })}
     </div>
   )
 }
