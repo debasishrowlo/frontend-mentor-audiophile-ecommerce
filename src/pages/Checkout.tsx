@@ -69,7 +69,47 @@ const Checkout = () => {
                   </div>
                 </div>
               </div>
-              {/* <div>Shipping Info</div> */}
+              <div className="mt-8 md:mt-14">
+                <h2 className="tracking-wider font-bold text-orange-200">SHIPPING INFO</h2>
+                <div className="mt-4">
+                  <Field
+                    label="Your Address"
+                    input={{
+                      type: "text",
+                      placeholder: "1137 Williams Avenue",
+                    }}
+                  />
+                </div>
+                <div className="mt-6 md:flex md:gap-4">
+                  <div className="md:w-1/2">
+                    <Field
+                      label="ZIP Code"
+                      input={{
+                        type: "number",
+                        placeholder: "10001",
+                      }}
+                    />
+                  </div>
+                  <div className="mt-6 md:w-1/2 md:mt-0">
+                    <Field
+                      label="City"
+                      input={{
+                        type: "text",
+                        placeholder: "New York",
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="mt-6 md:w-1/2 md:pr-2">
+                  <Field
+                    label="Country"
+                    input={{
+                      type: "text",
+                      placeholder: "United States",
+                    }}
+                  />
+                </div>
+              </div>
               {/* <div>Payment Details</div> */}
             </div>
             <div className="lg:w-1/4">Cart summary</div>
