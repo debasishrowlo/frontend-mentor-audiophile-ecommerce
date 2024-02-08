@@ -7,6 +7,7 @@ import cartIcon from "@/assets/shared/desktop/icon-cart.svg"
 import facebookIcon from "@/assets/shared/desktop/icon-facebook.svg"
 import twitterIcon from "@/assets/shared/desktop/icon-twitter.svg"
 import instagramIcon from "@/assets/shared/desktop/icon-instagram.svg"
+import rightArrowIcon from "@/assets/shared/desktop/icon-arrow-right.svg"
 
 import data from "@/data.json" 
 
@@ -98,7 +99,7 @@ const Product = () => {
 
   return (
     <>
-      <header className="sticky top-0 left-0 bg-black">
+      <header className="sticky z-10 top-0 left-0 bg-black">
         <div className="container mx-auto px-6 py-8 flex items-center justify-between md:px-10 lg:px-0">
           <button type="button" className="lg:hidden">
             <img src={hamburgerIcon} />
@@ -222,7 +223,7 @@ const Product = () => {
                   <div className="mt-8 text-center">
                     <Link 
                       to={`/products/${similarProduct.slug}`}
-                      className="px-7.5 py-3.5 bg-orange-200 text-14 tracking-wider font-bold text-white"
+                      className="px-7.5 py-3.5 inline-block bg-orange-200 text-14 tracking-wider font-bold text-white"
                     >
                       SEE PRODUCT
                     </Link>
@@ -232,18 +233,31 @@ const Product = () => {
             })}
           </div>
         </section>
-        {/*
-        <section className="container mx-auto md:flex">
+        <section className="product-page__container mt-30 md:flex md:gap-2.5">
           {categories.map((category, index) => {
             return (
-              <div key={index}>
-                <img src={require(`@/assets/shared/desktop/image-category-thumbnail-${category.name.toLowerCase()}.png`)} />
-                <p>{category.name}</p>
-                <Link to={category.url}>SHOP</Link>
+              <div key={index} className="mt-16 pt-22 pb-6 relative bg-gray-200 rounded-8 md:w-1/3">
+                <img 
+                  src={require(`@/assets/shared/desktop/image-category-thumbnail-${category.name.toLowerCase()}.png`)}
+                  className="w-32 mx-auto absolute left-1/2 top-0 -translate-x-1/2 -translate-y-[35%] lg:w-44"
+                />
+                <p className="text-center tracking-wider font-bold uppercase lg:text-18">{category.name}</p>
+                <div className="mt-4 text-center">
+                  <Link 
+                    to={category.url}
+                    className="inline-flex items-center tracking-wider font-bold text-14 opacity-50"
+                  >
+                    <span>SHOP</span>
+                    <span className="ml-3.5">
+                      <img src={rightArrowIcon} />
+                    </span>
+                  </Link>
+                </div>
               </div>
             )
           })}
         </section>
+        {/*
         <section className="container mx-auto lg:flex lg:flex-row-reverse">
           <div>
             <img src={require(`@/assets/shared/mobile/image-best-gear.jpg`)} className="md:hidden" />
