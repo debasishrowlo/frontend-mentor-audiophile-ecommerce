@@ -209,22 +209,30 @@ const Product = () => {
             </div>
           </div>
         </section>
-        {/*
-        <section className="container mx-auto">
-          <p>You may also like</p>
-          <div className="md:flex">
+        <section className="product-page__container mt-30 lg:mt-40">
+          <p className="text-center text-24 font-bold md:text-32">YOU MAY ALSO LIKE</p>
+          <div className="mt-10 md:flex md:gap-3 lg:mt-16 lg:gap-7.5">
             {product.similarProducts.map((similarProduct, index) => {
               return (
-                <div key={index}>
+                <div key={index} className="mt-14 first:mt-0 md:mt-0">
                   <img src={require(`@/assets/shared/mobile/image-${similarProduct.slug}.jpg`)} className="md:hidden" />
-                  <img src={require(`@/assets/shared/tablet/image-${similarProduct.slug}.jpg`)} className="hidden md:block" />
-                  <p>{similarProduct.name}</p>
-                  <Link to={`/products/${similarProduct.slug}`}>SEE PRODUCT</Link>
+                  <img src={require(`@/assets/shared/tablet/image-${similarProduct.slug}.jpg`)} className="hidden md:block md:rounded-8 lg:hidden" />
+                  <img src={require(`@/assets/shared/desktop/image-${similarProduct.slug}.jpg`)} className="hidden lg:block md:rounded-8" />
+                  <p className="mt-8 text-center text-24 font-bold uppercase">{similarProduct.name}</p>
+                  <div className="mt-8 text-center">
+                    <Link 
+                      to={`/products/${similarProduct.slug}`}
+                      className="px-7.5 py-3.5 bg-orange-200 text-14 tracking-wider font-bold text-white"
+                    >
+                      SEE PRODUCT
+                    </Link>
+                  </div>
                 </div>
               )
             })}
           </div>
         </section>
+        {/*
         <section className="container mx-auto md:flex">
           {categories.map((category, index) => {
             return (
