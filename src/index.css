@@ -13,3 +13,7 @@ body {
 @media (min-width: 1110px) {
     .container { max-width: 1110px; }
 }
+
+.product-page__container {
+    @apply container mx-auto px-6 md:px-10 lg:px-0;
+}

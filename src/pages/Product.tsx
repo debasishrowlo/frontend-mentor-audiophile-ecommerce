@@ -125,10 +125,10 @@ const Product = () => {
         </div>
       </header>
       <main>
-        <section className="container mx-auto mt-4 px-6 md:px-10 lg:px-0 md:mt-8 lg:mt-20">
+        <section className="product-page__container mt-4 md:mt-8 lg:mt-20">
           <a href="#" className="text-16 font-medium opacity-50">Go Back</a>
         </section>
-        <section className="container mx-auto mt-6 px-6 md:px-10 md:flex md:items-center md:space-x-[70px] lg:px-0 lg:space-x-[125px]">
+        <section className="product-page__container mt-6 md:flex md:items-center md:space-x-[70px] lg:space-x-[125px]">
           <div className="rounded-8 overflow-hidden md:w-2/5 lg:w-1/2">
             <img src={require(`@/assets/product-${product.slug}/mobile/image-product.jpg`)} className="md:hidden" />
             <img src={require(`@/assets/product-${product.slug}/tablet/image-product.jpg`)} className="hidden md:block lg:hidden" />
@@ -168,14 +168,14 @@ const Product = () => {
             </div>
           </div>
         </section>
-        <section className="container mx-auto mt-22 px-6 md:mt-32 md:px-10 lg:mt-40 lg:px-0 lg:flex">
+        <section className="product-page__container mt-22 md:mt-32 lg:mt-40 lg:flex">
           <div className="lg:w-2/3">
             <p className="text-24 font-bold md:text-32">FEATURES</p>
             <p className="mt-6 whitespace-pre-line opacity-50 lg:mt-8 lg:pr-20">{product.features}</p>
           </div>
           <div className="mt-28 lg:w-1/3 md:flex lg:mt-0 lg:block">
             <p className="text-24 font-bold md:w-1/2 md:text-32 lg:w-full">IN THE BOX</p>
-            <ul className="md:w-1/2 lg:mt-3 lg:w-full">
+            <ul className="mt-8 md:w-1/2 md:mt-0 lg:mt-3 lg:w-full">
               {product.includedProducts.map(((includedProduct, index) => (
                 <li key={index} className="mt-2 first:mt-0 lg:mt-3">
                   <span className="font-bold text-orange-200">{includedProduct.quantity}x</span> 
@@ -185,22 +185,31 @@ const Product = () => {
             </ul>
           </div>
         </section>
-        <section>
+        <section className="product-page__container mt-22">
           <div className="md:hidden">
-            <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-1.jpg`)} />
-            <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-2.jpg`)} />
-            <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-3.jpg`)} />
+            <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-1.jpg`)} className="rounded-8 shadow-[0_4px_4px_rgba(0,0,0,1)]" />
+            <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-2.jpg`)} className="mt-5 rounded-8 shadow-[0_4px_4px_rgba(0,0,0,1)]" />
+            <img src={require(`@/assets/product-${product.slug}/mobile/image-gallery-3.jpg`)} className="mt-5 rounded-8 shadow-[0_4px_4px_rgba(0,0,0,1)]" />
           </div>
-          <div className="container mx-auto hidden md:flex">
-            <div className="w-2/5">
-              <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-1.jpg`)} />
-              <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-2.jpg`)} />
+          <div className="product-page__container hidden md:flex gap-5">
+            <div className="w-2/5 flex flex-col justify-between gap-5">
+              <div
+                className="h-1/2 bg-cover rounded-8"
+                style={{ backgroundImage: `url(${require(`@/assets/product-${product.slug}/tablet/image-gallery-1.jpg`)})` }}
+              >
+              </div>
+              <div
+                className="h-1/2 bg-cover rounded-8"
+                style={{ backgroundImage: `url(${require(`@/assets/product-${product.slug}/tablet/image-gallery-2.jpg`)})` }}
+              >
+              </div>
             </div>
-            <div className="w-3/5">
-              <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-3.jpg`)} />
+            <div className="w-3/5 bg-cover rounded-8">
+              <img src={require(`@/assets/product-${product.slug}/tablet/image-gallery-3.jpg`)} className="rounded-8" />
             </div>
           </div>
         </section>
+        {/*
         <section className="container mx-auto">
           <p>You may also like</p>
           <div className="md:flex">
@@ -238,7 +247,9 @@ const Product = () => {
             <p>Located at the heart of New York City, Audiophile is the premier store for high end headphones, earphones, speakers, and audio accessories. We have a large showroom and luxury demonstration rooms available for you to browse and experience a wide range of our products. Stop by our store to meet some of the fantastic people who make Audiophile the best place to buy your portable audio equipment.</p>
           </div>
         </section>
+        */}
       </main>
+      {/*
       <footer className="bg-black">
         <div className="container mx-auto lg:flex lg:justify-between">
           <img src={logo} />
@@ -265,6 +276,7 @@ const Product = () => {
           </div>
         </div>
       </footer>
+      */}
     </>
   )
 }

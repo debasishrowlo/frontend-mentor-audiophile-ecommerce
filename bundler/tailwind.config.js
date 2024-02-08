@@ -43,6 +43,7 @@ module.exports = {
       },
       fontSize,
       spacing: {
+        "4.5": pxToRem(18),
         "22": pxToRem(88),
       },
     }
