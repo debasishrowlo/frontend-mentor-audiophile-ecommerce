@@ -1,20 +1,12 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Link,
-} from "react-router-dom"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
+import HomePage from "./pages/Home"
 import ProductPage from "./pages/Product"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <div>
-        <p>Hello world!</p>
-        <Link to="/products/yx1-earphones">Product page</Link>
-      </div>
-    ),
+    element: <HomePage />,
   },
   {
     path: "/products/:slug",
