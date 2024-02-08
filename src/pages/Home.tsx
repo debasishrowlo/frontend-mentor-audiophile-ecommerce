@@ -5,14 +5,21 @@ import data from "@/data.json"
 const Home = () => {
   return (
     <div>
-      <p>Products</p>
-      {data.map(product => {
-        return (
-          <div>
-            <Link to={`/products/${product.slug}`}>{product.name}</Link>
-          </div>
-        )
-      })}
+      <div>
+        <p>Products</p>
+        <div className="mt-2">
+          {data.map((product, index) => {
+            return (
+              <div key={index}>
+                <Link to={`/products/${product.slug}`}>{product.name}</Link>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+      <div className="mt-4">
+        <Link to="/checkout">Checkout</Link>
+      </div>
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 import HomePage from "./pages/Home"
 import ProductPage from "./pages/Product"
+import CheckoutPage from "./pages/Checkout"
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
   {
     path: "/products/:slug",
     element: <ProductPage />,
+  },
+  {
+    path: "/checkout",
+    element: <CheckoutPage />,
   },
   // TODO: 404 page
 ])
