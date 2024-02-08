@@ -107,13 +107,11 @@ const Product = () => {
           <div className="ml-6 flex justify-center md:grow md:justify-start lg:grow-0 lg:ml-0">
             <img src={logo} />
           </div>
-          <div 
-            className="hidden space-x-8 lg:block"
-          >
+          <div className="hidden space-x-8 lg:block">
             {menuItems.map((category, index) => (
               <a 
                 href="#" 
-                className="text-14 tracking-widest font-bold text-white uppercase"
+                className="text-14 tracking-[2px] font-bold text-white uppercase"
                 key={index}
               >
                 {category.name}
@@ -139,9 +137,9 @@ const Product = () => {
             {product.new && (
               <p className="text-14 tracking-[10px] text-orange-200 uppercase md:text-12 lg:text-14">New Product</p>
             )}
-            <p className="mt-6 text-28 font-bold tracking-wider uppercase md:leading-8 lg:text-40 lg:leading-[44px]">{product.name}</p>
+            <p className="mt-6 text-28 font-bold tracking-[1px] uppercase md:leading-8 lg:text-40 lg:leading-[44px]">{product.name}</p>
             <p className="mt-6 text-16 font-medium leading-6 opacity-50 md:mt-8">{product.description}</p>
-            <p className="mt-6 text-18 font-bold tracking-wider md:mt-8">$ {product.price}</p>
+            <p className="mt-6 text-18 font-bold tracking-[1.2px] md:mt-8">$ {product.price}</p>
             <div className="mt-8 flex">
               <div className="flex items-center bg-gray-200">
                 <button 
@@ -162,7 +160,7 @@ const Product = () => {
               </div>
               <button 
                 type="button" 
-                className="ml-4 px-8 bg-orange-200 hover:bg-orange-100 text-14 font-bold tracking-wide text-white uppercase transition-colors transition-300"
+                className="ml-4 px-8 bg-orange-200 hover:bg-orange-100 text-14 font-bold tracking-[1px] text-white uppercase transition-colors transition-300"
               >
                 Add to Cart
               </button>
@@ -223,7 +221,7 @@ const Product = () => {
                   <div className="mt-8 text-center">
                     <Link 
                       to={`/products/${similarProduct.slug}`}
-                      className="px-7.5 py-3.5 inline-block bg-orange-200 text-14 tracking-wider font-bold text-white"
+                      className="px-7.5 py-3.5 inline-block bg-orange-200 text-14 tracking-[1px] font-bold text-white"
                     >
                       SEE PRODUCT
                     </Link>
@@ -241,11 +239,11 @@ const Product = () => {
                   src={require(`@/assets/shared/desktop/image-category-thumbnail-${category.name.toLowerCase()}.png`)}
                   className="w-32 mx-auto absolute left-1/2 top-0 -translate-x-1/2 -translate-y-[35%] lg:w-44"
                 />
-                <p className="text-center tracking-wider font-bold uppercase lg:text-18">{category.name}</p>
+                <p className="text-center tracking-[1px] font-bold uppercase lg:text-18">{category.name}</p>
                 <div className="mt-4 text-center">
                   <Link 
                     to={category.url}
-                    className="inline-flex items-center tracking-wider font-bold text-14 opacity-50"
+                    className="inline-flex items-center tracking-[1px] font-bold text-14 opacity-50"
                   >
                     <span>SHOP</span>
                     <span className="ml-3.5">
@@ -261,7 +259,7 @@ const Product = () => {
           <div className="lg:w-1/2">
             <img src={require(`@/assets/shared/mobile/image-best-gear.jpg`)} className="rounded-8 md:hidden" />
             <img src={require(`@/assets/shared/tablet/image-best-gear.jpg`)} className="hidden rounded-8 md:block lg:hidden" />
-            <img src={require(`@/assets/shared/desktop/image-best-gear.jpg`)} className="hidden rounded-8 lg:block" />
+            <img src={require(`@/assets/shared/desktop/image-best-gear.jpg`)} className="w-full hidden rounded-8 lg:block" />
           </div>
           <div className="mt-10 md:mt-16 lg:w-1/2">
             <p className="text-center leading-10 text-28 font-bold md:text-40 lg:text-left">
@@ -269,38 +267,43 @@ const Product = () => {
               <br className="hidden md:block lg:hidden" />
               <span className="ml-1">AUDIO GEAR</span>
             </p>
-            <p className="mt-8 text-center font-medium opacity-50 md:px-10 lg:px-0 lg:pr-16 lg:text-left">Located at the heart of New York City, Audiophile is the premier store for high end headphones, earphones, speakers, and audio accessories. We have a large showroom and luxury demonstration rooms available for you to browse and experience a wide range of our products. Stop by our store to meet some of the fantastic people who make Audiophile the best place to buy your portable audio equipment.</p>
+            <p className="mt-8 text-center font-medium opacity-50 md:px-10 lg:px-0 lg:pr-16 lg:text-left">
+              Located at the heart of New York City, Audiophile is the premier store for high end headphones, earphones, speakers, and audio accessories. We have a large showroom and luxury demonstration rooms available for you to browse and experience a wide range of our products. Stop by our store to meet some of the fantastic people who make Audiophile the best place to buy your portable audio equipment.
+            </p>
           </div>
         </section>
       </main>
-      {/*
       <footer className="bg-black">
-        <div className="container mx-auto lg:flex lg:justify-between">
-          <img src={logo} />
-          <ul className="md:flex">
-            {menuItems.map((category, index) => (
-              <li key={index}>
-                <Link 
-                  to={`/categories/${category.name.toLowerCase()}`}
-                  className="text-white"
-                >
-                  {category.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="container mx-auto md:flex md:flex-wrap md:justify-between lg:items-end">
-          <p className="w-full text-white lg:order-1 lg:w-1/2">Audiophile is an all in one stop to fulfill your audio needs. We're a small team of music lovers and sound specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo facility - we’re open 7 days a week.</p>
-          <p className="text-white lg:order-3 lg:w-full">Copyright {year}. All Rights Reserved</p>
-          <div className="flex justify-center lg:order-2 lg:w-1/2 lg:justify-end">
-            <img src={facebookIcon} className="w-6 h-6" />
-            <img src={twitterIcon} className="w-6 h-6" />
-            <img src={instagramIcon} className="w-6 h-6" />
+        <div className="product-page__container">
+          <div className="mx-auto w-28 h-1 bg-orange-200 md:mx-0"></div>
+          <div className="lg:mt-16 lg:flex lg:justify-between lg:items-center">
+            <img src={logo} className="mx-auto mt-12 md:mx-0 md:mt-14 lg:mt-0" />
+            <ul className="mt-12 md:flex md:mt-8 lg:mt-0">
+              {menuItems.map((category, index) => (
+                <li key={index} className="mt-4 first:mt-0 text-center md:ml-8 md:first:ml-0 md:mt-0">
+                  <Link 
+                    to={`/categories/${category.name.toLowerCase()}`}
+                    className="text-14 tracking-[2px] font-bold text-white uppercase"
+                  >
+                    {category.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="mt-12 md:flex md:flex-wrap md:justify-between lg:items-end lg:mt-9">
+            <p className="w-full text-center leading-7 text-white opacity-50 md:text-left lg:order-1 lg:w-1/2">Audiophile is an all in one stop to fulfill your audio needs. We're a small team of music lovers and sound specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo facility - we’re open 7 days a week.</p>
+            <p className="mt-12 text-center font-bold text-white opacity-50 lg:order-3 lg:w-full lg:pb-12 lg:text-left">
+              Copyright {year}. All Rights Reserved
+            </p>
+            <div className="mt-12 pb-10 flex justify-center lg:order-2 lg:w-1/2 lg:pb-0 lg:justify-end">
+              {[facebookIcon, twitterIcon, instagramIcon].map((icon, index) => (
+                <img src={icon} className="w-6 ml-4 first:ml-0" key={index} />
+              ))}
+            </div>
           </div>
         </div>
       </footer>
-      */}
     </>
   )
 }
