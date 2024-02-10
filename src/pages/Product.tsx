@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { Link, useParams } from "react-router-dom"
 
+import { formatCurrency } from "@/common/utils"
+
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 
@@ -102,7 +104,7 @@ const Product = () => {
             )}
             <p className="mt-6 text-28 font-bold tracking-[1px] uppercase md:leading-8 lg:text-40 lg:leading-[44px]">{product.name}</p>
             <p className="mt-6 text-16 font-medium leading-6 opacity-50 md:mt-8">{product.description}</p>
-            <p className="mt-6 text-18 font-bold tracking-[1.2px] md:mt-8">$ {product.price}</p>
+            <p className="mt-6 text-18 font-bold tracking-[1.2px] md:mt-8">{formatCurrency(product.price)}</p>
             <div className="mt-8 flex">
               <div className="flex items-center bg-gray-200">
                 <button 
