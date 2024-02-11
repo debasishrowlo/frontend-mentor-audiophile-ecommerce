@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import classnames from "classnames"
 import { useNavigate } from "react-router-dom"
 
 import { formatCurrency } from "@/common/utils"
+import CartContext from "@/contexts/CartContext"
 
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
@@ -32,36 +33,9 @@ const enum paymentMethods {
 
 const Checkout = () => {
   const navigate = useNavigate()
+  const { cart } = useContext(CartContext)
 
   const [paymentMethod, setPaymentMethod] = useState<paymentMethods>(paymentMethods.eMoney)
-
-  const cart = {
-    products: [
-      { 
-        name: "XX99 MK II",
-        slug: "xx99-mark-two-headphones",
-        price: 2999,
-        quantity: 1,
-      },
-      { 
-        name: "XX59",
-        slug: "xx59-headphones",
-        price: 899,
-        quantity: 2,
-      },
-      {
-        name: "YX1",
-        slug: "yx1-earphones",
-        price: 599,
-        quantity: 1,
-      },
-    ],
-    total: 5396,
-    shipping: 50,
-    vat: 1079,
-    grandTotal: 0,
-  }
-  cart.grandTotal = cart.total + cart.shipping
 
   return (
     <>
@@ -219,44 +193,50 @@ const Checkout = () => {
               <div className="mt-8 px-6 py-8 bg-white rounded-8 md:p-8 lg:mt-0">
                 <h1 className="text-18 tracking-[1.2px] font-bold">SUMMARY</h1>
                 <div className="mt-8">
-                  {cart.products.map((product, index) => (
-                    <div key={index} className="mt-6 first:mt-0 flex items-center">
-                      <div className="shrink-0">
-                        <img 
-                          src={require(`@/assets/product-${product.slug}/mobile/image-product.jpg`)} 
-                          className="w-16 rounded-8"
-                        />
-                      </div>
-                      <div className="pl-6 flex grow justify-between">
-                        <div>
-                          <p className="font-bold">{product.name}</p>
-                          <p className="font-bold opacity-50 lg:text-14">{formatCurrency(product.price)}</p>
+                  {(cart.products.length > 0) ? (
+                    <>
+                      {cart.products.map((product, index) => (
+                        <div key={index} className="mt-6 first:mt-0 flex items-center">
+                          <div className="shrink-0">
+                            <img 
+                              src={require(`@/assets/product-${product.slug}/mobile/image-product.jpg`)} 
+                              className="w-16 rounded-8"
+                            />
+                          </div>
+                          <div className="pl-6 flex grow justify-between">
+                            <div>
+                              <p className="font-bold">{product.name}</p>
+                              <p className="font-bold opacity-50 lg:text-14">{formatCurrency(product.price)}</p>
+                            </div>
+                            <p className="font-bold opacity-50">x{product.quantity}</p>
+                          </div>
                         </div>
-                        <p className="font-bold opacity-50">x{product.quantity}</p>
+                      ))}
+                      <div className="mt-8">
+                        <div className="flex justify-between">
+                          <p className="opacity-50">TOTAL</p>
+                          <p className="text-18 font-bold">{formatCurrency(cart.total)}</p>
+                        </div>
+                        <div className="mt-2 flex justify-between">
+                          <p className="opacity-50">SHIPPING</p>
+                          <p className="text-18 font-bold">{formatCurrency(cart.shipping)}</p>
+                        </div>
+                        <div className="mt-2 flex justify-between">
+                          <p className="opacity-50">VAT (INCLUDED)</p>
+                          <p className="text-18 font-bold">{formatCurrency(cart.vat)}</p>
+                        </div>
+                        <div className="mt-6 flex justify-between">
+                          <p className="opacity-50">GRAND TOTAL</p>
+                          <p className="text-18 font-bold text-orange-200">{formatCurrency(cart.grandTotal)}</p>
+                        </div>
+                        <button type="button" className="w-full mt-8 py-4 bg-orange-200 text-14 font-bold tracking-[1px] text-white">
+                          CONTINUE & PAY
+                        </button>
                       </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-8">
-                  <div className="flex justify-between">
-                    <p className="opacity-50">TOTAL</p>
-                    <p className="text-18 font-bold">{formatCurrency(cart.total)}</p>
-                  </div>
-                  <div className="mt-2 flex justify-between">
-                    <p className="opacity-50">SHIPPING</p>
-                    <p className="text-18 font-bold">{formatCurrency(cart.shipping)}</p>
-                  </div>
-                  <div className="mt-2 flex justify-between">
-                    <p className="opacity-50">VAT (INCLUDED)</p>
-                    <p className="text-18 font-bold">{formatCurrency(cart.vat)}</p>
-                  </div>
-                  <div className="mt-6 flex justify-between">
-                    <p className="opacity-50">GRAND TOTAL</p>
-                    <p className="text-18 font-bold text-orange-200">{formatCurrency(cart.grandTotal)}</p>
-                  </div>
-                  <button type="button" className="w-full mt-8 py-4 bg-orange-200 text-14 font-bold tracking-[1px] text-white">
-                    CONTINUE & PAY
-                  </button>
+                    </>
+                  ) : (
+                    <p className="font-bold tracking-wider opacity-50">No Items Available</p>
+                  )}
                 </div>
               </div>
             </div>

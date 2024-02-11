@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { Link, useParams } from "react-router-dom"
 
 import { formatCurrency } from "@/common/utils"
+import CartContext, { Cart } from "@/contexts/CartContext"
 
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
@@ -55,33 +56,56 @@ const getProduct = (slug:string) => {
 
 const Product = () => {
   const params = useParams()
+  const { cart, setCart } = useContext(CartContext)
+  console.log({ cart })
 
   const [product, setProduct] = useState(getProduct(params.slug))
   const [quantity, setQuantity] = useState(1)
-  const [cart, setCart] = useState([])
 
   const addToCart = () => {
-    const productIndex = cart.findIndex(cartProduct => cartProduct.id === product.id)
+    const productIndex = cart.products.findIndex(cartProduct => cartProduct.slug === product.slug)
+    const cartContainsProduct = productIndex !== -1
 
-    if (productIndex === -1) {
-      setCart([
-        ...cart,
-        {
-          id: product.id,
-          quantity,
-        }
-      ])
-    } else {
-      setCart([
-        ...cart.slice(0, productIndex),
-        {
-          ...cart[productIndex],
-          quantity: cart[productIndex].quantity + quantity,
-        },
-        ...cart.slice(productIndex + 1),
-      ])
+    let newCart:Cart = {
+      products: [],
+      total: 0,
+      shipping: 50,
+      vat: 1079,
+      grandTotal: 0,
     }
 
+    if (cartContainsProduct) {
+      newCart = {
+        ...cart,
+        products: [
+          ...cart.products.slice(0, productIndex),
+          {
+            ...cart.products[productIndex],
+            quantity: cart.products[productIndex].quantity + quantity,
+          },
+          ...cart.products.slice(productIndex + 1),
+        ],
+      }
+    } else {
+      newCart = {
+        ...cart,
+        products: [
+          ...cart.products,
+          {
+            name: product.name,
+            slug: product.slug,
+            price: product.price,
+            quantity,
+          }
+        ],
+      }
+    }
+
+    newCart.total = newCart.products.reduce((acc, product) => acc + product.price, 0)
+    newCart.grandTotal = newCart.total + newCart.shipping
+
+    console.log({ newCart })
+    setCart(newCart)
     setQuantity(1)
   }
 
@@ -126,6 +150,7 @@ const Product = () => {
               <button 
                 type="button" 
                 className="ml-4 px-8 bg-orange-200 hover:bg-orange-100 text-14 font-bold tracking-[1px] text-white uppercase transition-colors transition-300"
+                onClick={() => addToCart()}
               >
                 Add to Cart
               </button>

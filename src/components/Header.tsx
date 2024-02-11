@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 import logo from "@/assets/shared/desktop/logo.svg"
 import hamburgerIcon from "@/assets/shared/tablet/icon-hamburger.svg"
 import cartIcon from "@/assets/shared/desktop/icon-cart.svg"
@@ -11,9 +13,9 @@ const Header = () => {
         <button type="button" className="lg:hidden">
           <img src={hamburgerIcon} />
         </button>
-        <div className="ml-6 flex justify-center md:grow md:justify-start lg:grow-0 lg:ml-0">
+        <Link to="/" className="ml-6 flex justify-center md:grow md:justify-start lg:grow-0 lg:ml-0">
           <img src={logo} />
-        </div>
+        </Link>
         <div className="hidden space-x-8 lg:block">
           {menuItems.map((category, index) => (
             <a 
@@ -25,9 +27,9 @@ const Header = () => {
             </a>
           ))}
         </div>
-        <button type="button">
+        <Link to="/checkout">
           <img src={cartIcon} />
-        </button>
+        </Link>
       </div>
     </header>
   )
