@@ -24,12 +24,39 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
+  // const [cart, setCart] = useState<Cart>({
+  //   products: [],
+  //   total: 0,
+  //   shipping: 0,
+  //   vat: 0,
+  //   grandTotal: 0,
+  // })
+  // console.log(cart)
   const [cart, setCart] = useState<Cart>({
-    products: [],
-    total: 0,
-    shipping: 0,
-    vat: 0,
-    grandTotal: 0,
+    "products": [
+      {
+        "name": "XX99 Mark II",
+        "slug": "xx99-mark-two-headphones",
+        "price": 599,
+        "quantity": 1,
+      },
+      {
+        "name": "XX59",
+        "slug": "xx59-headphones",
+        "price": 899,
+        "quantity": 2,
+      },
+      {
+        "name": "YX1 Wireless Earphones",
+        "slug": "yx1-earphones",
+        "price": 599,
+        "quantity": 1,
+      },
+    ],
+    "total": 599,
+    "shipping": 0,
+    "vat": 0,
+    "grandTotal": 599
   })
 
   return (

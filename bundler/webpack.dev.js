@@ -14,7 +14,7 @@ module.exports = merge(common, {
     historyApiFallback: true,
     open: true,
     compress: true,
-    port: 9001,
+    port: 3000,
     watchFiles: path.resolve(paths.src, "index.html"),
   },
 })

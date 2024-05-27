@@ -24,8 +24,9 @@ module.exports = {
     container: false,
   },
   theme: {
+    fontSize,
+    borderRadius,
     extend: {
-      borderRadius,
       colors: {
         gray: {
           100: "#FAFAFA",
@@ -38,11 +39,13 @@ module.exports = {
           200: "#D87D4A",
         },
         black: "#000000",
+        red: {
+          100: "#CD2C2C",
+        },
       },
       fontFamily: {
         'manrope': ['Manrope', 'sans-serif'],
       },
-      fontSize,
       spacing: {
         "4.5": pxToRem(18),
         "7.5": pxToRem(30),
