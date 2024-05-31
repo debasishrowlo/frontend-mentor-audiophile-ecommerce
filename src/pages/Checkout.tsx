@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 import classnames from "classnames"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useFormik } from "formik"
 import * as yup from "yup"
 import { Dialog, DialogPanel } from "@headlessui/react"
@@ -18,36 +18,39 @@ const requiredErrorMessage = "required"
 const Field = ({
   label,
   input,
+  touched,
   error = "",
   onChange = () => {},
 } : {
   label: string,
   input: React.InputHTMLAttributes<HTMLInputElement>,
+  touched: boolean,
   error: string,
   onChange?: React.ChangeEventHandler<HTMLInputElement>,
 }) => {
+  const hasError = touched && error
   const errorMessage = error === requiredErrorMessage ? "" : error
 
   return (
     <div>
       <div className="flex justify-between">
         <p className={classnames("text-12 font-bold", {
-          "text-red-100": error,
+          "text-red-100": hasError,
         })}>
           {label}
         </p>
-        {errorMessage && (
+        {hasError && (
           <p className="text-12 font-medium text-red-100">{errorMessage}</p>
         )}
       </div>
       <div className={classnames("mt-2 border-transparent", {
-        "border": !error,
-        "border-0": error,
+        "border": !hasError,
+        "border-0": hasError,
       })}>
         <input
           className={classnames("w-full px-6 py-4 border rounded-8 placeholder:font-bold placeholder:text-black placeholder:opacity-50", {
-            "border border-gray-300": !error,
-            "border-2 border-red-100 outline-none": error,
+            "border border-gray-300": !hasError,
+            "border-2 border-red-100 outline-none": hasError,
           })}
           {...input}
           onChange={onChange}
@@ -78,23 +81,23 @@ const ThankYouDialog = ({
         <DialogPanel as={React.Fragment}>
           <div className="p-8 md:p-12 bg-white w-full max-w-[540px] max-h-full rounded-8 overflow-y-auto">
             <img src={CheckIcon} />
-            <p className="mt-6 text-24 leading-7 font-bold md:mt-8 md:text-32">THANK YOU <br/> FOR YOUR ORDER</p>
-            <p className="mt-4 text-14 font-medium text-black/50 md:mt-6">You will receive an email confirmation shortly.</p>
+            <p className="mt-6 text-24 leading-7 font-bold md:mt-8 md:text-32 md:leading-9">THANK YOU <br/> FOR YOUR ORDER</p>
+            <p className="mt-4 text-14 leading-6 font-medium text-black/50 md:mt-6">You will receive an email confirmation shortly.</p>
             <div className="mt-6 rounded-8 overflow-hidden md:mt-8 md:flex">
               <div className="p-6 bg-gray-200 md:w-1/2">
                 {products.map(product => (
-                  <div className="mt-4 first:mt-0 flex justify-between">
-                    <div className="flex items-center">
-                      <img
-                        src={require(`@/assets/product-${product.slug}/mobile/image-product.jpg`)}
-                        className="w-12 md:w-16 rounded-8"
-                      />
-                      <div className="ml-4">
+                  <div className="mt-4 flex items-center first:mt-0">
+                    <img
+                      src={require(`@/assets/product-${product.slug}/mobile/image-product.jpg`)}
+                      className="w-12 rounded-8"
+                    />
+                    <div className="ml-4 flex grow justify-between items-start">
+                      <div>
                         <p className="text-14 font-bold">{product.name}</p>
                         <p className="text-14 font-bold text-black/50">{formatCurrency(product.price)}</p>
                       </div>
+                      <p className="text-14 font-bold text-black/50">x{product.quantity}</p>
                     </div>
-                    <p className="text-14 font-bold text-black/50">x{product.quantity}</p>
                   </div>
                 ))}
                 <div className="mt-3 border-t border-black/10">
@@ -111,14 +114,24 @@ const ThankYouDialog = ({
                   </button>
                 </div>
               </div>
-              <div className="p-6 bg-black md:w-1/2">
-                <p className="text-14 text-white/50">GRAND TOTAL</p>
-                <p className="mt-3 text-18 font-bold text-white">{formatCurrency(cart.grandTotal)}</p>
+              <div className={classnames("p-6 flex bg-black md:w-1/2", {
+                "items-center": !allItemsVisible,
+                "items-end": allItemsVisible,
+              })}>
+                <div>
+                  <p className="text-14 text-white/50">GRAND TOTAL</p>
+                  <p className="mt-3 text-18 font-bold text-white">{formatCurrency(cart.grandTotal)}</p>
+                </div>
               </div>
             </div>
-            <button type="button" className="w-full mt-6 py-4 bg-orange-200 text-14 font-bold text-white md:mt-12">
-              BACK TO HOME
-            </button>
+            <div>
+              <Link 
+                to="/" 
+                className="block w-full mt-6 py-4 bg-orange-200 hover:bg-orange-100 text-14 font-bold text-center text-white transition md:mt-12"
+              >
+                BACK TO HOME
+              </Link>
+            </div>
           </div>
         </DialogPanel>
       </div>
@@ -129,6 +142,8 @@ const ThankYouDialog = ({
 const Checkout = () => {
   const navigate = useNavigate()
   const { cart } = useContext(CartContext)
+
+  const [thankYouDialogVisible, setThankYouDialogVisible] = useState(false)
 
   const form = useFormik({
     initialValues: {
@@ -154,10 +169,10 @@ const Checkout = () => {
       eMoneyNumber: yup.string().required(requiredErrorMessage),
       eMoneyPin: yup.string().required(requiredErrorMessage),
     }),
-    onSubmit: () => {},
+    onSubmit: () => {
+      setThankYouDialogVisible(true)
+    },
   })
-
-  const [thankYouDialogVisible, setThankYouDialogVisible] = useState(true)
 
   return (
     <>
@@ -165,7 +180,7 @@ const Checkout = () => {
       <main className="bg-gray-200 pt-4">
         <form onSubmit={form.handleSubmit}>
           <div className="container mx-auto px-6">
-            <button onClick={() => navigate(-1)} className="font-medium opacity-50 md:font-normal">
+            <button type="button" onClick={() => navigate(-1)} className="font-medium opacity-50 md:font-normal">
               Go Back
             </button>
             <div className="mt-6 pb-24 md:pb-28 lg:mt-10 lg:pb-36 lg:flex lg:gap-7.5">
@@ -182,7 +197,9 @@ const Checkout = () => {
                             name: "name",
                             type: "text",
                             placeholder: "Alexei Ward",
+                            value: form.values.name,
                           }}
+                          touched={form.touched.name}
                           error={form.errors.name}
                           onChange={form.handleChange}
                         />
@@ -194,7 +211,9 @@ const Checkout = () => {
                             name: "email",
                             type: "email",
                             placeholder: "alexeiward@mail.com",
+                            value: form.values.email,
                           }}
+                          touched={form.touched.email}
                           error={form.errors.email}
                           onChange={form.handleChange}
                         />
@@ -207,7 +226,9 @@ const Checkout = () => {
                           name: "phoneNumber",
                           type: "tel",
                           placeholder: "+1 202-555-0136",
+                          value: form.values.phoneNumber,
                         }}
+                        touched={form.touched.phoneNumber}
                         error={form.errors.phoneNumber}
                         onChange={form.handleChange}
                       />
@@ -223,7 +244,9 @@ const Checkout = () => {
                         name: "address",
                         type: "text",
                         placeholder: "1137 Williams Avenue",
+                        value: form.values.address,
                       }}
+                      touched={form.touched.address}
                       error={form.errors.address}
                       onChange={form.handleChange}
                     />
@@ -236,7 +259,9 @@ const Checkout = () => {
                           name: "zip",
                           type: "number",
                           placeholder: "10001",
+                          value: form.values.zip,
                         }}
+                        touched={form.touched.zip}
                         error={form.errors.zip}
                         onChange={form.handleChange}
                       />
@@ -248,7 +273,9 @@ const Checkout = () => {
                           name: "city",
                           type: "text",
                           placeholder: "New York",
+                          value: form.values.city,
                         }}
+                        touched={form.touched.city}
                         error={form.errors.city}
                         onChange={form.handleChange}
                       />
@@ -261,7 +288,9 @@ const Checkout = () => {
                         name: "country",
                         type: "text",
                         placeholder: "United States",
+                        value: form.values.country,
                       }}
+                      touched={form.touched.country}
                       error={form.errors.country}
                       onChange={form.handleChange}
                     />
@@ -319,7 +348,9 @@ const Checkout = () => {
                           name: "eMoneyNumber",
                           type: "number",
                           placeholder: "238521993",
+                          value: form.values.eMoneyNumber,
                         }}
+                        touched={form.touched.eMoneyNumber}
                         error={form.errors.eMoneyNumber}
                         onChange={form.handleChange}
                       />
@@ -331,7 +362,9 @@ const Checkout = () => {
                           name: "eMoneyPin",
                           type: "number",
                           placeholder: "6891",
+                          value: form.values.eMoneyPin,
                         }}
+                        touched={form.touched.eMoneyPin}
                         error={form.errors.eMoneyPin}
                         onChange={form.handleChange}
                       />
