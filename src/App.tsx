@@ -3,22 +3,34 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 import CartContext, { Cart } from "@/contexts/CartContext"
 
+import MainLayout from "./layouts/MainLayout"
+
 import HomePage from "./pages/Home"
+import CategoryPage from "./pages/Category"
 import ProductPage from "./pages/Product"
 import CheckoutPage from "./pages/Checkout"
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <HomePage />,
-  },
-  {
-    path: "/products/:slug",
-    element: <ProductPage />,
-  },
-  {
-    path: "/checkout",
-    element: <CheckoutPage />,
+    element: <MainLayout />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/categories/:category",
+        element: <CategoryPage />,
+      },
+      {
+        path: "/products/:slug",
+        element: <ProductPage />,
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutPage />,
+      },
+    ]
   },
   // TODO: 404 page
 ])
@@ -31,7 +43,6 @@ const App = () => {
   //   vat: 0,
   //   grandTotal: 0,
   // })
-  // console.log(cart)
   const [cart, setCart] = useState<Cart>({
     "products": [
       {
@@ -58,6 +69,7 @@ const App = () => {
     "vat": 0,
     "grandTotal": 599
   })
+  // console.log(cart)
 
   return (
     <CartContext.Provider value={{ cart, setCart }}>

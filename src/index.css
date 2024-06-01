@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+
+.btn {
+    @apply px-7.5 py-3.5 inline-block bg-orange-200 text-14 tracking-[1px] font-bold text-white uppercase hover:bg-orange-100 transition;
+}
 
 body {
     @apply font-manrope text-black;
@@ -14,6 +17,8 @@ body {
     .container { max-width: 1110px; }
 }
 
-.product-page__container {
+.custom-container {
     @apply container mx-auto px-6 md:px-10 lg:px-0;
 }
+
+@tailwind utilities;

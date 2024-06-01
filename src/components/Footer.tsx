@@ -12,7 +12,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-black">
-      <div className="product-page__container">
+      <div className="custom-container">
         <div className="mx-auto w-28 h-1 bg-orange-200 md:mx-0"></div>
         <div className="lg:mt-16 lg:flex lg:justify-between lg:items-center">
           <img src={logo} className="mx-auto mt-12 md:mx-0 md:mt-14 lg:mt-0" />

@@ -8,9 +8,6 @@ import { Dialog, DialogPanel } from "@headlessui/react"
 import { formatCurrency } from "@/common/utils"
 import CartContext, { Cart } from "@/contexts/CartContext"
 
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
-
 import CheckIcon from "@/assets/checkout/icon-order-confirmation.svg"
 
 const requiredErrorMessage = "required"
@@ -176,7 +173,6 @@ const Checkout = () => {
 
   return (
     <>
-      <Header />
       <main className="bg-gray-200 pt-4">
         <form onSubmit={form.handleSubmit}>
           <div className="container mx-auto px-6">
@@ -434,7 +430,6 @@ const Checkout = () => {
       >
         <ThankYouDialog cart={cart} />
       </Dialog>
-      <Footer />
     </>
   )
 }

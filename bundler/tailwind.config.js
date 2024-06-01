@@ -49,8 +49,9 @@ module.exports = {
       spacing: {
         "4.5": pxToRem(18),
         "7.5": pxToRem(30),
-        "22": pxToRem(88),
-        "30": pxToRem(120),
+        "22": pxToRem(22 * 4),
+        "30": pxToRem(30 * 4),
+        "40": pxToRem(40 * 4),
       },
     }
   },
