@@ -1,5 +1,17 @@
 import { Link } from "react-router-dom"
 
+import BestGear from "@/components/BestGear"
+import Categories from "@/components/Categories"
+
+import patternCircles from "@/assets/home/desktop/pattern-circles.svg"
+import speaker1Image from "@/assets/home/mobile/image-speaker-zx9.png"
+import speaker2MobileImage from "@/assets/home/mobile/image-speaker-zx7.jpg"
+import speaker2TabletImage from "@/assets/home/tablet/image-speaker-zx7.jpg"
+import speaker2DesktopImage from "@/assets/home/desktop/image-speaker-zx7.jpg"
+import earphoneMobileImage from "@/assets/home/mobile/image-earphones-yx1.jpg"
+import earphoneTabletImage from "@/assets/home/tablet/image-earphones-yx1.jpg"
+import earphoneDesktopImage from "@/assets/home/desktop/image-earphones-yx1.jpg"
+
 import data from "@/data.json"
 
 const Home = () => {
@@ -41,6 +53,66 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <section className="custom-container mt-30 lg:mt-40">
+        <Categories />
+      </section>
+      <section className="custom-container mt-30 md:mt-24 lg:mt-40">
+        <div className="py-14 bg-orange-200 rounded-8 lg:py-0 lg:flex lg:overflow-hidden">
+          <div className="relative lg:w-1/2 lg:mt-24">
+            <img src={patternCircles} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full scale-[1.7] md:scale-[1.3] lg:top-2/3 lg:scale-[1.5]" />
+            <img src={speaker1Image} className="relative z-1 mx-auto w-44 md:w-48 lg:w-3/5 lg:translate-y-4" />
+          </div>
+          <div className="relative z-1 mt-8 lg:w-1/2 lg:mt-0 lg:flex lg:flex-col lg:justify-center">
+            <p className="text-center text-36 leading-10 tracking-[1.2] font-bold text-white uppercase md:text-56 md:leading-[58px] md:tracking-[2px] lg:text-left">
+              ZX9 <br /> SPEAKER
+            </p>
+            <p className="mt-6 text-center text-white/75 leading-[25px] md:mx-auto md:w-1/2 lg:w-2/3 lg:mx-0 lg:text-left">Upgrade to premium speakers that are phenomenally built to deliver truly remarkable sound.</p>
+            <div className="mt-6 text-center md:mt-10 lg:text-left">
+              <Link 
+                to="/products/zx9-speaker" 
+                className="mx-auto px-7.5 py-3.5 inline-block bg-black hover:bg-[#4C4C4C] text-14 tracking-[1px] font-bold text-white uppercase transition duration-300"
+              >
+                See Product
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="mt-6 md:mt-8 lg:mt-12 relative">
+          <img src={speaker2MobileImage} className="md:hidden rounded-8" />
+          <img src={speaker2TabletImage} className="hidden md:block lg:hidden rounded-8 " />
+          <img src={speaker2DesktopImage} className="hidden lg:block rounded-8" />
+          <div className="absolute top-1/2 left-6 -translate-y-1/2 md:left-16 lg:left-24">
+            <p className="text-28 font-bold tracking-[2px] uppercase">zx7 Speaker</p>
+            <Link 
+              to="/products/zx9-speaker" 
+              className="mx-auto mt-8 px-7.5 py-3.5 inline-block border border-black hover:bg-black text-14 tracking-[1px] font-bold hover:text-white uppercase transition duration-300"
+            >
+              See Product
+            </Link>
+          </div>
+        </div>
+        <div className="mt-6 flex flex-col gap-6 md:flex-row md:gap-3 lg:gap-7.5">
+          <div className="rounded-8 overflow-hidden md:w-1/2">
+            <img src={earphoneMobileImage} className="w-full object-cover md:hidden" />
+            <img src={earphoneTabletImage} className="hidden w-full object-cover md:block lg:hidden" />
+            <img src={earphoneDesktopImage} className="hidden w-full object-cover lg:block" />
+          </div>
+          <div className="px-6 py-10 bg-gray-200 rounded-8 md:w-1/2 md:px-10 md:flex md:flex-col md:justify-center lg:px-24">
+            <p className="text-28 font-bold tracking-[2px] uppercase">yx1 earphones</p>
+            <div>
+              <Link
+                to="/products/yx1-earphones" 
+                className="mt-8 px-7.5 py-3.5 inline-block border border-black hover:bg-black text-14 tracking-[1px] font-bold hover:text-white uppercase transition duration-300"
+              >
+                See Product
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="custom-container my-30">
+        <BestGear />
+      </section>
       <div>
         <p>Products</p>
         <div className="mt-2">

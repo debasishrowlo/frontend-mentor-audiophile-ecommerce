@@ -6,7 +6,7 @@ import categories from "@/common/categories"
 
 const Categories = () => {
   return (
-    <div className="md:flex md:gap-2.5">
+    <div className="md:flex md:gap-2.5 lg:gap-7.5">
       {categories.map((category, index) => {
         return (
           <div key={index} className="mt-16 pt-22 pb-6 relative bg-gray-200 rounded-8 md:w-1/3">
