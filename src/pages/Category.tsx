@@ -19,6 +19,8 @@ const Category = () => {
       description: product.description,
     }))
 
+  // TODO: redirect to 404 page if no products found
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [params.category])

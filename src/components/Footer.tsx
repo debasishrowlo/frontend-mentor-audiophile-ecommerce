@@ -17,13 +17,13 @@ const Footer = () => {
         <div className="lg:mt-16 lg:flex lg:justify-between lg:items-center">
           <img src={logo} className="mx-auto mt-12 md:mx-0 md:mt-14 lg:mt-0" />
           <ul className="mt-12 md:flex md:mt-8 lg:mt-0">
-            {menuItems.map((category, index) => (
+            {menuItems.map((menuItem, index) => (
               <li key={index} className="mt-4 first:mt-0 text-center md:ml-8 md:first:ml-0 md:mt-0">
                 <Link 
-                  to={`/categories/${category.name.toLowerCase()}`}
+                  to={menuItem.url}
                   className="text-14 tracking-[2px] font-bold text-white uppercase"
                 >
-                  {category.name}
+                  {menuItem.name}
                 </Link>
               </li>
             ))}
