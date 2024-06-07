@@ -45,7 +45,7 @@ const Home = () => {
             <div className="mt-7 text-center md:mt-10 lg:text-left">
               <Link 
                 to={`/products/${heroProduct.slug}`}
-                className="px-7.5 py-3.5 inline-block bg-orange-200 text-14 tracking-[1px] font-bold text-white uppercase"
+                className="px-7.5 py-3.5 inline-block bg-orange-200 hover:bg-orange-100 text-14 tracking-[1px] font-bold text-white uppercase transition duration-300"
               >
                 See Product
               </Link>
@@ -57,7 +57,7 @@ const Home = () => {
         <Categories />
       </section>
       <section className="custom-container mt-30 md:mt-24 lg:mt-40">
-        <div className="py-14 bg-orange-200 rounded-8 lg:py-0 lg:flex lg:overflow-hidden">
+        <div className="py-14 bg-orange-200 rounded-8 overflow-hidden lg:py-0 lg:flex">
           <div className="relative lg:w-1/2 lg:mt-24">
             <img src={patternCircles} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full scale-[1.7] md:scale-[1.3] lg:top-2/3 lg:scale-[1.5]" />
             <img src={speaker1Image} className="relative z-1 mx-auto w-44 md:w-48 lg:w-3/5 lg:translate-y-4" />
@@ -69,7 +69,7 @@ const Home = () => {
             <p className="mt-6 text-center text-white/75 leading-[25px] md:mx-auto md:w-1/2 lg:w-2/3 lg:mx-0 lg:text-left">Upgrade to premium speakers that are phenomenally built to deliver truly remarkable sound.</p>
             <div className="mt-6 text-center md:mt-10 lg:text-left">
               <Link 
-                to="/products/zx9-speaker" 
+                to="/products/zx9-speaker"
                 className="mx-auto px-7.5 py-3.5 inline-block bg-black hover:bg-[#4C4C4C] text-14 tracking-[1px] font-bold text-white uppercase transition duration-300"
               >
                 See Product
