@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 import CartContext, { Cart, initialCart } from "@/contexts/CartContext"
@@ -37,33 +37,23 @@ const router = createBrowserRouter([
   // TODO: 404 page
 ])
 
+const getInitialCart = ():Cart => {
+  let cart:Cart|null = null
+
+  try {
+    const localStorageCart = localStorage.getItem("cart")
+    if (localStorageCart) {
+      cart = JSON.parse(localStorageCart)
+    }
+  } catch (e) {
+    cart = { ...initialCart }
+  }
+
+  return cart
+}
+
 const App = () => {
-  // const [cart, setCart] = useState<Cart>({ ...initialCart })
-  const [cart, setCart] = useState<Cart>({
-    ...initialCart,
-    "products": [
-      {
-        "name": "XX99 Mark II",
-        "slug": "xx99-mark-two-headphones",
-        "price": 599,
-        "quantity": 1,
-      },
-      {
-        "name": "XX59",
-        "slug": "xx59-headphones",
-        "price": 899,
-        "quantity": 2,
-      },
-      {
-        "name": "YX1 Wireless Earphones",
-        "slug": "yx1-earphones",
-        "price": 599,
-        "quantity": 1,
-      },
-    ],
-    "total": 1000,
-    "grandTotal": 1000,
-  })
+  const [cart, setCart] = useState<Cart>(getInitialCart())
 
   const calculateTotals = (cart:Cart):Cart => {
     let newCart = { ...cart }
@@ -141,6 +131,10 @@ const App = () => {
     removeProduct,
     removeAllProducts,
   }
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart))
+  }, [cart])
 
   return (
     <CartContext.Provider value={cartContextValues}>
