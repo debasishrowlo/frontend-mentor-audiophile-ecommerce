@@ -113,19 +113,6 @@ const Home = () => {
       <section className="custom-container my-30">
         <BestGear />
       </section>
-      <div>
-        <p>Products</p>
-        <div className="mt-2">
-          {data.map((product, index) => (
-            <div key={index}>
-              <Link to={`/products/${product.slug}`}>{product.name}</Link>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="mt-4" style={{ height: "1000px" }}>
-        <Link to="/checkout">Checkout</Link>
-      </div>
     </>
   )
 }
