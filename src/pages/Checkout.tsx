@@ -83,7 +83,10 @@ const ThankYouDialog = ({
             <div className="mt-6 rounded-8 overflow-hidden md:mt-8 md:flex">
               <div className="p-6 bg-gray-200 md:w-1/2">
                 {products.map(product => (
-                  <div className="mt-4 flex items-center first:mt-0">
+                  <div
+                    className="mt-4 flex items-center first:mt-0"
+                    key={product.slug}
+                  >
                     <img
                       src={require(`@/assets/product-${product.slug}/mobile/image-product.jpg`)}
                       className="w-12 rounded-8"

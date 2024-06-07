@@ -44,12 +44,10 @@ const Header = () => {
 
   const {
     cart,
-    setCart, 
     updateQuantity, 
     removeProduct,
     removeAllProducts,
   } = useContext(CartContext)
-  console.log({ cart })
 
   const [miniCartVisible, setMiniCartVisible] = useState(false)
 
@@ -122,7 +120,10 @@ const Header = () => {
                           </div>
                           <div className="mt-8 flex flex-col gap-6">
                             {cart.products.map((product, index) => (
-                              <div className="flex justify-between items-center">
+                              <div
+                                className="flex justify-between items-center"
+                                key={product.slug}
+                              >
                                 <div className="flex items-center">
                                   <img
                                     src={require(`@/assets/product-${product.slug}/mobile/image-product.jpg`)}

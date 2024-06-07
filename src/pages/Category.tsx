@@ -34,7 +34,10 @@ const Category = () => {
       </div>
       <section className="custom-container mt-16 md:mt-30 lg:mt-40">
         {products.map(product => (
-          <div className="mt-30 first:mt-0 lg:mt-40 lg:flex lg:gap-30 lg:even:flex-row-reverse lg:items-center">
+          <div
+            className="mt-30 first:mt-0 lg:mt-40 lg:flex lg:gap-30 lg:even:flex-row-reverse lg:items-center"
+            key={product.slug}
+          >
             <div className="rounded-8 overflow-hidden">
               <img src={require(`@/assets/product-${product.slug}/mobile/image-category-page-preview.jpg`)} className="md:hidden" />
               <img src={require(`@/assets/product-${product.slug}/tablet/image-category-page-preview.jpg`)} className="hidden md:block lg:hidden" />

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 
 import BestGear from "@/components/BestGear"
@@ -51,51 +51,35 @@ const getProduct = (slug:string) => {
   return product
 }
 
+const getInitialQuantity = (cart:Cart, slug:string) => {
+  const cartProduct = cart.products.find(product => product.slug === slug)
+  const initialQuantity = cartProduct !== undefined ? cartProduct.quantity : 1
+
+  return initialQuantity
+}
+
 const Product = () => {
   const params = useParams()
-  const { cart, setCart } = useContext(CartContext)
+  const { cart, addProduct, updateQuantity } = useContext(CartContext)
 
-  const [product, setProduct] = useState(getProduct(params.slug))
-  const [quantity, setQuantity] = useState(1)
+  const slug = params.slug
+  const [product, setProduct] = useState(getProduct(slug))
+  const [quantity, setQuantity] = useState(getInitialQuantity(cart, slug))
 
   const addToCart = () => {
     const productIndex = cart.products.findIndex(cartProduct => cartProduct.slug === product.slug)
     const cartContainsProduct = productIndex !== -1
 
-    let newCart:Cart = { ...initialCart }
-
     if (cartContainsProduct) {
-      newCart = {
-        ...cart,
-        products: [
-          ...cart.products.slice(0, productIndex),
-          {
-            ...cart.products[productIndex],
-            quantity: cart.products[productIndex].quantity + quantity,
-          },
-          ...cart.products.slice(productIndex + 1),
-        ],
-      }
+      updateQuantity(productIndex, quantity)
     } else {
-      newCart = {
-        ...cart,
-        products: [
-          ...cart.products,
-          {
-            name: product.name,
-            slug: product.slug,
-            price: product.price,
-            quantity,
-          }
-        ],
-      }
+      addProduct(product.slug, quantity)
     }
-
-    newCart.total = newCart.products.reduce((acc, product) => acc + product.price, 0)
-
-    setCart(newCart)
-    setQuantity(1)
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <main>

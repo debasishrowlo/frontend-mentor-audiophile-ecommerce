@@ -10,6 +10,8 @@ import CategoryPage from "./pages/Category"
 import ProductPage from "./pages/Product"
 import CheckoutPage from "./pages/Checkout"
 
+import data from "@/data.json"
+
 const router = createBrowserRouter([
   {
     element: <MainLayout />,
@@ -36,13 +38,7 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
-  // const [cart, setCart] = useState<Cart>({
-  //   products: [],
-  //   total: 0,
-  //   shipping: 0,
-  //   vat: 0,
-  //   grandTotal: 0,
-  // })
+  // const [cart, setCart] = useState<Cart>({ ...initialCart })
   const [cart, setCart] = useState<Cart>({
     ...initialCart,
     "products": [
@@ -116,10 +112,32 @@ const App = () => {
     setCart(newCart)
   }
 
+  const addProduct = (slug:string, quantity:number) => {
+    const product = data.find(product => product.slug === slug)
+    
+    if (!product) {
+      throw new Error("Invalid product")
+    }
+
+    let newCart = { ...cart }
+    newCart.products = [
+      ...newCart.products,
+      {
+        name: product.name,
+        slug: product.slug,
+        price: product.price,
+        quantity,
+      },
+    ]
+    newCart = calculateTotals(newCart)
+    setCart(newCart)
+  }
+
   const cartContextValues = {
     cart,
     setCart,
     updateQuantity,
+    addProduct,
     removeProduct,
     removeAllProducts,
   }

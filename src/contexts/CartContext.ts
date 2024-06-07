@@ -24,12 +24,14 @@ export const initialCart:Cart = {
 const defaultValue:{
   cart: Cart,
   setCart: React.Dispatch<React.SetStateAction<Cart>>,
+  addProduct: Function,
   updateQuantity: Function,
   removeProduct: Function,
   removeAllProducts: Function,
 } = {
   cart: { ...initialCart },
   setCart: () => {},
+  addProduct: () => {},
   updateQuantity: () => {},
   removeProduct: () => {},
   removeAllProducts: () => {},
