@@ -11,7 +11,7 @@ import logo from "@/assets/shared/desktop/logo.svg"
 import hamburgerIcon from "@/assets/shared/tablet/icon-hamburger.svg"
 import cartIcon from "@/assets/shared/desktop/icon-cart.svg"
 
-const Content = () => {
+const Content = ({ openMiniCart } : { openMiniCart: Function}) => {
   return (
     <>
       <button type="button" className="lg:hidden">
@@ -31,9 +31,9 @@ const Content = () => {
           </Link>
         ))}
       </div>
-      <Link to="/checkout">
+      <button type="button" onClick={() => openMiniCart()}>
         <img src={cartIcon} />
-      </Link>
+      </button>
     </>
   )
 }
@@ -42,16 +42,45 @@ const Header = () => {
   const location = useLocation()
   const onHomePage = location.pathname === "/"
 
-  const { cart } = useContext(CartContext)
+  const {
+    cart,
+    setCart, 
+    updateQuantity, 
+    removeProduct,
+    removeAllProducts,
+  } = useContext(CartContext)
+  console.log({ cart })
 
   const [miniCartVisible, setMiniCartVisible] = useState(false)
+
+  const openMiniCart = () => {
+    setMiniCartVisible(true)
+  }
+
+  const increment = (index:number) => {
+    updateQuantity(index, cart.products[index].quantity + 1)
+  }
+
+  const decrement = (index:number) => {
+    const newQuantity = cart.products[index].quantity - 1
+
+    if (newQuantity > 0) {
+      updateQuantity(index, newQuantity)
+    } else {
+      removeProduct(index)
+    }
+  }
+
+  const removeAll = () => {
+    removeAllProducts()
+  }
 
   return (
     <>
       {onHomePage && (
         <div className="fixed z-30 top-0 left-0 w-full">
           <div className="container mx-auto px-6 py-8 flex items-center justify-between border-b border-white/10 md:px-10 lg:px-0">
-            <Content />
+            <Content openMiniCart={openMiniCart} />
           </div>
         </div>
       )}
@@ -62,7 +91,7 @@ const Header = () => {
         <div className={classnames("container mx-auto px-6 py-8 flex items-center justify-between md:px-10 lg:px-0", {
           "border-b border-white/10": !onHomePage,
         })}>
-          <Content />
+          <Content openMiniCart={openMiniCart} />
         </div>
       </div>
       {miniCartVisible && (
@@ -79,42 +108,66 @@ const Header = () => {
                 <div className="relative z-10 container mx-auto flex w-screen items-center justify-center p-6 md:px-10 md:justify-end lg:px-0 lg:py-8">
                   <DialogPanel as={React.Fragment}>
                     <div className="w-full max-w-[375px] px-7 py-8 bg-white rounded-8">
-                      <div className="flex justify-between items-center">
-                        <p className="text-18 font-bold tracking-[1.2px] uppercase">Cart ({cart.products.length})</p>
-                        <button type="button" className="text-black/50 underline">Remove all</button>
-                      </div>
-                      <div className="mt-8 flex flex-col gap-6">
-                        {cart.products.map(product => (
+                      {cart.products.length > 0 ? (
+                        <>
                           <div className="flex justify-between items-center">
-                            <div className="flex items-center">
-                              <img
-                                src={require(`@/assets/product-${product.slug}/mobile/image-product.jpg`)}
-                                className="w-16 h-16 rounded-8"
-                              />
-                              <div className="ml-4">
-                                <p className="text-[15px] font-bold leading-[25px]">{product.name}</p>
-                                <p className="text-14 font-bold text-black/50">{formatCurrency(product.price)}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center bg-gray-200">
-                              <button type="button" className="px-4 py-2 text-14 font-bold tracking-[1px] text-black/25">-</button>
-                              <p className="min-w-[16px] text-center text-14 font-bold tracking-[1px] uppercase">{product.quantity}</p>
-                              <button type="button" className="px-4 py-2 text-14 font-bold tracking-[1px] text-black/25">+</button>
-                            </div>
+                            <p className="text-18 font-bold tracking-[1.2px] uppercase">Cart ({cart.products.length})</p>
+                            <button
+                              type="button"
+                              className="text-black/50 underline"
+                              onClick={() => removeAll()}
+                            >
+                              Remove all
+                            </button>
                           </div>
-                        ))}
-                      </div>
-                      <div className="mt-8 flex justify-between items-center">
-                        <p className="text-black/50">TOTAL</p>
-                        <p className="text-18 font-bold uppercase">{formatCurrency(cart.grandTotal)}</p>
-                      </div>
-                      <Link
-                        to="/checkout"
-                        onClick={() => setMiniCartVisible(false)}
-                        className="mt-6 w-full py-4 inline-block bg-orange-200 hover:bg-orange-100 text-center text-white transition duration-300"
-                      >
-                        CHECKOUT
-                      </Link>
+                          <div className="mt-8 flex flex-col gap-6">
+                            {cart.products.map((product, index) => (
+                              <div className="flex justify-between items-center">
+                                <div className="flex items-center">
+                                  <img
+                                    src={require(`@/assets/product-${product.slug}/mobile/image-product.jpg`)}
+                                    className="w-16 h-16 rounded-8"
+                                  />
+                                  <div className="ml-4">
+                                    <p className="text-[15px] font-bold leading-[25px]">{product.name}</p>
+                                    <p className="text-14 font-bold text-black/50">{formatCurrency(product.price)}</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-center bg-gray-200">
+                                  <button 
+                                    type="button"
+                                    className="px-4 py-2 text-14 font-bold tracking-[1px] text-black/25"
+                                    onClick={() => decrement(index)}
+                                  >
+                                    -
+                                  </button>
+                                  <p className="min-w-[16px] text-center text-14 font-bold tracking-[1px] uppercase">{product.quantity}</p>
+                                  <button
+                                    type="button"
+                                    className="px-4 py-2 text-14 font-bold tracking-[1px] text-black/25"
+                                    onClick={() => increment(index)}
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="mt-8 flex justify-between items-center">
+                            <p className="text-black/50">TOTAL</p>
+                            <p className="text-18 font-bold uppercase">{formatCurrency(cart.grandTotal)}</p>
+                          </div>
+                          <Link
+                            to="/checkout"
+                            onClick={() => setMiniCartVisible(false)}
+                            className="mt-6 w-full py-4 inline-block bg-orange-200 hover:bg-orange-100 text-center text-white transition duration-300"
+                          >
+                            CHECKOUT
+                          </Link>
+                        </>
+                      ) : (
+                        <p className="text-18 font-bold tracking-[1.2px] uppercase">Cart (0)</p>
+                      )}
                     </div>
                   </DialogPanel>
                 </div>

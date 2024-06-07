@@ -13,18 +13,26 @@ export type Cart = {
   grandTotal: number,
 }
 
+export const initialCart:Cart = {
+  products: [],
+  total: 0,
+  grandTotal: 0,
+  shipping: 50,
+  vat: 0,
+}
+
 const defaultValue:{
   cart: Cart,
   setCart: React.Dispatch<React.SetStateAction<Cart>>,
+  updateQuantity: Function,
+  removeProduct: Function,
+  removeAllProducts: Function,
 } = {
-  cart: {
-    products: [],
-    total: 0,
-    shipping: 0,
-    vat: 0,
-    grandTotal: 0,
-  },
+  cart: { ...initialCart },
   setCart: () => {},
+  updateQuantity: () => {},
+  removeProduct: () => {},
+  removeAllProducts: () => {},
 }
 
 const CartContext = createContext(defaultValue)

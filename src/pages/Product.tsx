@@ -5,7 +5,7 @@ import BestGear from "@/components/BestGear"
 import Categories from "@/components/Categories"
 
 import { formatCurrency } from "@/common/utils"
-import CartContext, { Cart } from "@/contexts/CartContext"
+import CartContext, { Cart, initialCart } from "@/contexts/CartContext"
 
 import data from "@/data.json" 
 
@@ -62,13 +62,7 @@ const Product = () => {
     const productIndex = cart.products.findIndex(cartProduct => cartProduct.slug === product.slug)
     const cartContainsProduct = productIndex !== -1
 
-    let newCart:Cart = {
-      products: [],
-      total: 0,
-      shipping: 50,
-      vat: 1079,
-      grandTotal: 0,
-    }
+    let newCart:Cart = { ...initialCart }
 
     if (cartContainsProduct) {
       newCart = {
@@ -98,7 +92,6 @@ const Product = () => {
     }
 
     newCart.total = newCart.products.reduce((acc, product) => acc + product.price, 0)
-    newCart.grandTotal = newCart.total + newCart.shipping
 
     setCart(newCart)
     setQuantity(1)

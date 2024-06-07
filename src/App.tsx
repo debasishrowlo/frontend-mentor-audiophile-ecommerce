@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-import CartContext, { Cart } from "@/contexts/CartContext"
+import CartContext, { Cart, initialCart } from "@/contexts/CartContext"
 
 import MainLayout from "./layouts/MainLayout"
 
@@ -44,6 +44,7 @@ const App = () => {
   //   grandTotal: 0,
   // })
   const [cart, setCart] = useState<Cart>({
+    ...initialCart,
     "products": [
       {
         "name": "XX99 Mark II",
@@ -64,15 +65,67 @@ const App = () => {
         "quantity": 1,
       },
     ],
-    "total": 599,
-    "shipping": 0,
-    "vat": 0,
-    "grandTotal": 599
+    "total": 1000,
+    "grandTotal": 1000,
   })
-  // console.log(cart)
+
+  const calculateTotals = (cart:Cart):Cart => {
+    let newCart = { ...cart }
+
+    newCart.total = newCart.products.reduce((total, product) => {
+      return total + product.quantity * product.price
+    }, 0)
+    newCart.vat = newCart.total * 0.2
+    newCart.grandTotal = newCart.vat + newCart.shipping + newCart.total
+
+    return newCart
+  }
+
+  const updateQuantity = (index:number, quantity:number) => {
+    let newCart = { ...cart }
+
+    newCart.products = [
+      ...newCart.products.slice(0, index),
+      {
+        ...newCart.products[index],
+        quantity,
+      },
+      ...newCart.products.slice(index + 1),
+    ]
+    newCart = calculateTotals(newCart)
+
+    setCart(newCart)
+  }
+
+  const removeProduct = (index:number) => {
+    let newCart = { ...cart }
+
+    newCart.products = [
+      ...newCart.products.slice(0, index),
+      ...newCart.products.slice(index + 1),
+    ]
+    newCart = calculateTotals(newCart)
+
+    setCart(newCart)
+  }
+
+  const removeAllProducts = () => {
+    let newCart = { ...cart }
+    newCart.products = []
+    newCart = calculateTotals(newCart)
+    setCart(newCart)
+  }
+
+  const cartContextValues = {
+    cart,
+    setCart,
+    updateQuantity,
+    removeProduct,
+    removeAllProducts,
+  }
 
   return (
-    <CartContext.Provider value={{ cart, setCart }}>
+    <CartContext.Provider value={cartContextValues}>
       <RouterProvider router={router} />
     </CartContext.Provider>
   )
