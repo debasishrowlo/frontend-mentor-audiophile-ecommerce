@@ -38,11 +38,11 @@ const router = createBrowserRouter([
 ])
 
 const getInitialCart = ():Cart => {
-  let cart:Cart|null = null
+  let cart:Cart|null = { ...initialCart }
 
   try {
     const localStorageCart = localStorage.getItem("cart")
-    if (localStorageCart) {
+    if (localStorageCart && localStorageCart !== "null") {
       cart = JSON.parse(localStorageCart)
     }
   } catch (e) {
@@ -54,6 +54,7 @@ const getInitialCart = ():Cart => {
 
 const App = () => {
   const [cart, setCart] = useState<Cart>(getInitialCart())
+  console.log({ cart })
 
   const calculateTotals = (cart:Cart):Cart => {
     let newCart = { ...cart }
@@ -123,6 +124,10 @@ const App = () => {
     setCart(newCart)
   }
 
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart))
+  }, [cart])
+
   const cartContextValues = {
     cart,
     setCart,
@@ -131,10 +136,6 @@ const App = () => {
     removeProduct,
     removeAllProducts,
   }
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart))
-  }, [cart])
 
   return (
     <CartContext.Provider value={cartContextValues}>
